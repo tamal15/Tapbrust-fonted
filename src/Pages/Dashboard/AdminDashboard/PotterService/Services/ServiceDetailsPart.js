@@ -69,12 +69,12 @@ import Footer from "../../../../../Shared/Footer/Footer";
     const [isFetched, setIsFetched] = useState(0);
      const {user}=useAuth;
     useEffect(() => {
-      fetch(`https://sellerportal.vercel.app/potterservice`)
+      fetch(`https://tapbrust-backend.onrender.com/potterservice`)
         .then((res) => res.json())
         .then((data) => setService(data));
     }, [id]);
     useEffect(() => {
-        fetch('https://sellerportal.vercel.app/potterservice')
+        fetch('https://tapbrust-backend.onrender.com/potterservice')
             .then(res => res.json())
             .then((data) => {
                 // const foundSession = data.services.filter(detail => detail._id === id)
@@ -88,7 +88,7 @@ import Footer from "../../../../../Shared/Footer/Footer";
 
     useEffect(()=>{
 
-      fetch("https://sellerportal.vercel.app/review")
+      fetch("https://tapbrust-backend.onrender.com/review")
       .then(res=>res.json())
       .then(data=>{
         // const managePost = data?.data.data
@@ -117,7 +117,7 @@ import Footer from "../../../../../Shared/Footer/Footer";
     const onSubmit = (data) => {
         console.log(data);
 
-        fetch("https://sellerportal.vercel.app/review", {
+        fetch("https://tapbrust-backend.onrender.com/review", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

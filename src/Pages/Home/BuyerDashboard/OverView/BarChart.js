@@ -7,7 +7,7 @@ import WeekBarChart from './WeekBarChart';
 const BarChart = () => {
     const [model, setModel] = useState([]);
     useEffect(()=>{
-        fetch('https://sellerportal.vercel.app/adminShowproduct')
+        fetch('https://tapbrust-backend.onrender.com/adminShowproduct')
         .then(res=>res.json())
         .then(data => {
             const sliceData = data.allQuestions.slice(0, 1);

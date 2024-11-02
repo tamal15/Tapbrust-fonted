@@ -9,27 +9,27 @@ const GraphChart = ({datas}) => {
 
     const data = [
         {
-            "name": "ProductPrice",
-            "uv": datas?.ProductPrice,
-            "pv": datas?.ProductPrice,
+            "name": "Pending",
+            "uv": datas?.parcentage,
+            "pv": datas?.parcentage,
 
         },
         {
-            "name": "rating",
-            "uv": datas?.rating,
-            "pv": datas?.rating,
+            "name": "Approved",
+            "uv": datas?.disparcentage,
+            "pv": datas?.disparcentage,
 
         },
         {
-            "name": "ProductPrice",
-            "uv": datas?.ProductPrice,
-            "pv": datas?.ProductPrice,
+            "name": "Pending",
+            "uv": datas?.parcentage,
+            "pv": datas?.parcentage,
 
         },
         {
-            "name": "rating",
-            "uv": datas?.rating,
-            "pv": datas?.rating,
+            "name": "Approved",
+            "uv": datas?.disparcentage,
+            "pv": datas?.disparcentage,
 
         },
 

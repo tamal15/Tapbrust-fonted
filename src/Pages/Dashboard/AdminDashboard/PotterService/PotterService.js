@@ -18,7 +18,7 @@ const PotterService = () => {
         // data.status = 'Pending'
      
 
-        fetch("https://sellerportal.vercel.app/potterservice", {
+        fetch("https://tapbrust-backend.onrender.com/potterservice", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(data),

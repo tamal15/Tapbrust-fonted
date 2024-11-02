@@ -22,7 +22,7 @@ const UserDesignOrder = () => {
         // data.status = 'Pending'
      
 
-        fetch("https://sellerportal.vercel.app/userDesign", {
+        fetch("https://tapbrust-backend.onrender.com/userDesign", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(data),

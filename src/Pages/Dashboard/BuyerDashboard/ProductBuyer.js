@@ -34,7 +34,7 @@ const ProductBuyer = () => {
    
 
     useEffect(()=>{
-      fetch(`https://sellerportal.vercel.app/buyerproducts/${user?.email}`)
+      fetch(`https://tapbrust-backend.onrender.com/buyerproducts/${user?.email}`)
       .then(res=>res.json())
       .then(data=>setService(data))
   },[user?.email])
@@ -42,7 +42,7 @@ const ProductBuyer = () => {
 
     const handleDelete=(id)=>{
       const proceed=window.confirm('are you sure, you want to delete');
-      fetch(`https://sellerportal.vercel.app/deleteProduct/${id}`,{
+      fetch(`https://tapbrust-backend.onrender.com/deleteProduct/${id}`,{
           method:'DELETE'
       }).then(res=>res.json())
       .then(data=>{

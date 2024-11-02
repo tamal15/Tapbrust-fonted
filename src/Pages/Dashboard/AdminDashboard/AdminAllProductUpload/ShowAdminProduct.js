@@ -35,7 +35,7 @@ const ShowAdminProduct = () => {
 
    
         useEffect(()=>{
-            fetch('https://sellerportal.vercel.app/getpostadmin')
+            fetch('https://tapbrust-backend.onrender.com/getpostadmin')
             .then(res=>res.json())
             .then(data=>setModel(data))
         },[])

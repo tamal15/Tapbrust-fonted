@@ -11,7 +11,7 @@ const AdminProducts = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
-    fetch('https://sellerportal.vercel.app/adminShowproduct')
+    fetch('https://tapbrust-backend.onrender.com/adminShowproduct')
       .then((res) => res.json())
       .then((data) => setProducts(data.allQuestions))
       .catch(error => console.error('Error fetching products:', error));
@@ -19,7 +19,7 @@ const AdminProducts = () => {
 
   const handleDelete = async (parentId, index) => {
     try {
-      const response = await fetch(`https://sellerportal.vercel.app/productdelete/${parentId}/${index}`, {
+      const response = await fetch(`https://tapbrust-backend.onrender.com/productdelete/${parentId}/${index}`, {
         method: 'DELETE',
       });
 

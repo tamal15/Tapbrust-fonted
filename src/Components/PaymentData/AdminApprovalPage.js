@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Button, List, ListItem, ListItemText, CircularProgress } from '@mui/material';
+import { Box, Typography, Button, List, ListItem, ListItemText, CircularProgress, IconButton } from '@mui/material';
 import Swal from 'sweetalert2';
+import { CopyAll as CopyIcon } from '@mui/icons-material';
 
 const AdminApprovalPage = () => {
   const [requests, setRequests] = useState([]);
@@ -11,7 +12,7 @@ const AdminApprovalPage = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await fetch('https://sellerportal.vercel.app/api/withdraw-requests');
+        const response = await fetch('https://tapbrust-backend.onrender.com/api/withdraw-requests');
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         setRequests(data);
@@ -40,7 +41,7 @@ const AdminApprovalPage = () => {
       });
 
       if (result.isConfirmed) {
-        const response = await fetch(`https://sellerportal.vercel.app/api/approve-withdraw/${id}`, {
+        const response = await fetch(`https://tapbrust-backend.onrender.com/api/approve-withdraw/${id}`, {
           method: 'PATCH',
         });
 
@@ -81,9 +82,23 @@ const AdminApprovalPage = () => {
       Swal.fire('Error!', error.message, 'error');
     }
   };
+  const handleCopy = (address) => {
+    navigator.clipboard.writeText(address).then(() => {
+        // Optionally, show a success message using SweetAlert2 or Snackbar
+        Swal.fire({
+            title: 'Copied!',
+            text: 'Payment address copied to clipboard.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    }).catch((err) => {
+        console.error('Failed to copy: ', err);
+        // You can show an error alert here if needed
+    });
+};
 
   return (
-    <div className="admin-approval-page">
+    <div className="admin-approval-page text-white">
       <Typography variant="h4" gutterBottom>
         Withdrawal Requests
       </Typography>
@@ -92,13 +107,19 @@ const AdminApprovalPage = () => {
       ) : error ? (
         <Typography color="error">{error}</Typography>
       ) : (
-        <List>
+        <List className='text-white'>
           {requests.map(request => (
             <ListItem key={request._id} divider>
-              <ListItemText
-                primary={`Amount: ${request.amount} Taka`}
-                secondary={`Payment Method: ${request.paymentMethod}, Mobile Number: ${request.mobileNumber}`}
-              />
+             <ListItemText
+ primary={`Amount: ${request.amount} Taka`}
+ secondary={`Payment Method: ${request.paymentMethod}, Payment Address: ${request.mobileNumber}, email: ${request.email}`}
+ primaryTypographyProps={{ style: { color: 'white' } }}
+ secondaryTypographyProps={{ style: { color: 'white' } }}
+/>
+<IconButton onClick={() => handleCopy(request.mobileNumber)} color="inherit">
+ <CopyIcon />
+</IconButton>
+
               <Button
                 variant="contained"
                 color="success"

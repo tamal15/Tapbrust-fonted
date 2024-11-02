@@ -48,8 +48,8 @@ const CartOrder = ({ cart }) => {
                                     </Typography>
                                     <br />
                                     <Typography style={{ fontWeight: 700 }} variant="body">
-                                        <span style={{ fontWeight: 700 }}> Fabric:</span>
-                                        {single?.Fabric}
+                                        <span style={{ fontWeight: 700 }}> Size:</span>
+                                        {single?.selectedSize}
                                     </Typography>
                                     <br />
                                    

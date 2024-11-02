@@ -17,7 +17,7 @@ const ManageTable = (props) => {
 
 
     const handleUpdate = (id) => {
-        fetch(`https://sellerportal.vercel.app/buyerStatusUpdate/${id}`, {
+        fetch(`https://tapbrust-backend.onrender.com/buyerStatusUpdate/${id}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ statu}),

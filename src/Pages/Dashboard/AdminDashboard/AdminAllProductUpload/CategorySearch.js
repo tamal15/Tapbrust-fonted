@@ -9,6 +9,7 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
+  Skeleton,
 } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import Swal from "sweetalert2";
@@ -20,6 +21,11 @@ import useAuth from "../../../../Hooks/useAuth";
 import SearchBar from "../../../ShareeCategories/TaterSharee/SearchBar";
 import Header from "../../../../Shared/Header/Header";
 import Footer from "../../../../Shared/Footer/Footer";
+import { FcLike } from "react-icons/fc";
+
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const CategorySearch = () => {
   const [cart, setCart] = useContext(CartContext);
@@ -45,7 +51,7 @@ const CategorySearch = () => {
   const navigate = useNavigate();
 
   const fetchData = () => {
-    fetch(`https://sellerportal.vercel.app/adminShowproduct?page=${page}&size=${size}`)
+    fetch(`https://tapbrust-backend.onrender.com/adminShowproduct?page=${page}&size=${size}`)
       .then((res) => res.json())
       .then((data) => {
         setModel(data.allQuestions);
@@ -111,7 +117,8 @@ const CategorySearch = () => {
       (pd) =>
         pd.types === product.types &&
         pd.ProductPrice === product.ProductPrice &&
-        pd.productimg === product.productimg
+        pd.productimg === product.productimg &&
+        pd.selectedSize === product.selectedSize 
     );
 
     let updatedCart;
@@ -136,6 +143,7 @@ const CategorySearch = () => {
         totalIncome: incomePrice * quantity,
         shippingOption,
         shippingCost,
+        selectedSize
       };
       updatedCart = [...storedCart, newProduct];
     }
@@ -212,6 +220,77 @@ const CategorySearch = () => {
   };
   const placeholder = "Search by  Categories Name example- baby";
 
+
+  const handleLikeProducts = (product) => {
+    const likedProductData = {
+      categories: product.categories,
+      size: product.size,
+      img: product.img,
+      description: product.description,
+      ProductPrice: product.ProductPrice,
+      userEmail: user.email // Assuming the user is logged in and the email is available
+    };
+  
+    // Send the product data to the backend using POST
+    fetch("https://tapbrust-backend.onrender.com/addLikedProductdata", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(likedProductData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        Swal.fire("Success", "Product liked successfully!", "success");
+      })
+      .catch((error) => {
+        console.error("Error liking product:", error);
+        Swal.fire("Error", "Failed to like product", "error");
+      });
+  };
+
+
+  const [zoom, setZoom] = useState({
+    backgroundPositionX: 'center',
+    backgroundPositionY: 'center',
+  });
+
+  // Handle mouse move for zoom effect (optional)
+  const handleMouseMove = (event) => {
+    const { left, top, width, height } = event.target.getBoundingClientRect();
+    const x = ((event.pageX - left) / width) * 100;
+    const y = ((event.pageY - top) / height) * 100;
+
+    setZoom({
+      backgroundPositionX: `${x}%`,
+      backgroundPositionY: `${y}%`,
+    });
+  };
+  
+  const [loading, setLoading] = useState(true);
+
+  // Simulate loading data
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false); // Set loading to false after 2 seconds
+    }, 2000);
+    
+    return () => clearTimeout(timer); // Cleanup the timer
+  }, []);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true, // Enables autoplay
+    autoplaySpeed: 3000, // Time in ms for each slide (3 seconds)
+  };
+
+  const [selectedSize, setSelectedSize] = useState('');
+
+
   return (
     <div>
         <Header/>
@@ -239,94 +318,82 @@ const CategorySearch = () => {
   
 </div>
 
-                <Grid
-                  container
-                  spacing={2}
-                  sx={{ mt: 2 }}
-                  columns={{ xs: 4, sm: 8, md: 12 }}
-                >
-                  {products.map((product) => {
-                    const categoryCount = product.services.reduce(
-                      (acc, service) => {
-                        acc[service.categories] =
-                          (acc[service.categories] || 0) + 1;
-                        return acc;
-                      },
-                      {}
-                    );
+<Grid container spacing={{xs:1, sm:1,md:2}} sx={{ mt: 2 }} columns={{ xs: 8, sm: 8, md: 12 }}>
+      {loading ? (
+        Array.from(new Array(12)).map((_, index) => ( // Adjust the number as needed
+          <Grid item xs={4} sm={4} md={3} key={index}>
+            <Skeleton variant="rectangular" width="100%" height={180} />
+            <Skeleton variant="text" sx={{ fontSize: '1.5rem', marginTop: '10px' }} />
+            <Skeleton variant="text" sx={{ fontSize: '1rem', marginTop: '10px' }} />
+            <Skeleton variant="text" sx={{ fontSize: '1rem', marginTop: '10px' }} />
+          </Grid>
+        ))
+      ) : (
+        products.map((product) => {
+          const categoryCount = product.services.reduce((acc, service) => {
+            acc[service.categories] = (acc[service.categories] || 0) + 1;
+            return acc;
+          }, {});
 
-                    return product.services.map((service) => (
-                        <Grid
-                        sx={{ py: 3,marginTop:"-29px" }}
-                        key={`${product._id}-${service.categories}`}
-                        item
-                        xs={4}
-                        sm={4}
-                        md={3}
+          return product.services.map((service) => (
+            <Grid sx={{ py: 3, marginTop: "3px" }} key={`${product._id}-${service.categories}`} item xs={4} sm={4} md={3}>
+              <Paper sx={{
+                p: 1,
+                margin: "auto",
+                maxWidth: 400,
+                flexGrow: 1,
+                boxShadow: "0px 10px 22px rgb(42 135 158 / 50%)",
+              }}>
+                <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 4 }}>
+                  <Grid item xs={12} sm={12} md={12}>
+                    <div className="photo">
+                      <div className="photoShops">
+                        <img src={service.img} alt={service.categories} />
+                      </div>
+                    </div>
+                  </Grid>
+
+                  <Grid item xs={4} sm={4} md={8} pl={2} my={3}>
+                    <Box sx={{ textAlign: "left", marginTop: {xs:"-29px",md:"-25px"} }}>
+                      <h5 style={{ fontWeight: "700" }}>
+                        {service.categories}
+                      </h5>
+                      <Box style={{ fontWeight: "700" }}>
+                        {user && user.email ? (
+                          <Typography variant="body">
+                            Price: {service.ProductPrice}
+                          </Typography>
+                        ) : null // Hides the price if the user is not logged in or has not received the email
+                        }
+                      </Box>
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={4} sm={4} md={4}>
+                    <div style={{ marginTop: "-30px" }}>
+                      <Button
+                        sx={{ mt: {xs:0,md:1}, mb: {xs:1,md:2} }}
+                        onClick={() => handleOpenModal(service)}
+                        variant="outlined"
                       >
-                        <Paper
-                          sx={{
-                            p: 1,
-                            margin: "auto",
-                            maxWidth: 400,
-                            flexGrow: 1,
-                            boxShadow: "0px 10px 22px rgb(42 135 158 / 50%)",
-                          }}
-                        >
-                          <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 4 }}>
-                            <Grid item xs={12} sm={12} md={12}>
-                              <div className="photo">
-                                <div className="photoShops">
-                                  <img src={service.img} alt={service.categories} />
-                                </div>
-                              </div>
-                            </Grid>
-                      
-                            <Grid item xs={2} sm={4} md={8} pl={2} my={3}>
-                              <Box style={{ textAlign: "left",marginTop:"-20px" }}>
-                                <h5 style={{ fontWeight: "700" }}>
-                                   {service.categories}
-                                </h5>
-                                <Box style={{ fontWeight: "700" }}>
-    {user && user.email ? (
-      <Typography variant="body">
-        Price: {service.ProductPrice}
-      </Typography>
-    ) : (
-      null // Hides the price if the user is not logged in or has not received the email
-    )}
-  </Box>
-
-                      
-                                
-                              </Box>
-                            </Grid>
-                      
-                            <Grid item xs={4} sm={4} md={4}>
-                              <div style={{marginTop:"-23px"}}>
-                                <Button
-                                  sx={{ mt: 1, mb: 2 }}
-                                  onClick={() => handleOpenModal(service)}
-                                  variant="outlined"
-                                >
-                                  Add Cart
-                                </Button>
-                                <Button
-                                  sx={{ mt: 1, mb: 2, marginLeft: "5px",background:"#113350"}}
-                                  onClick={() => handleOpenCheckModal(service)}
-                                  variant="contained"
-                                >
-                                  Details
-                                </Button>
-                              </div>
-                            </Grid>
-                          </Grid>
-                        </Paper>
-                      </Grid>
-                      
-                    ));
-                  })}
+                        Add Cart
+                      </Button>
+                      <Button
+                        sx={{mt: { xs: 0, md: 1 }, mb: {xs:0,md:2}, marginLeft: "5px", background: "#113350" }}
+                        onClick={() => handleOpenCheckModal(service)}
+                        variant="contained"
+                      >
+                        Details
+                      </Button>
+                    </div>
+                  </Grid>
                 </Grid>
+              </Paper>
+            </Grid>
+          ));
+        })
+      )}
+    </Grid>
               </div>
             ))}
           </div>
@@ -437,6 +504,30 @@ const CategorySearch = () => {
                 </Button>
               </div>
 
+              <Box>
+      {/* Display the currently selected size */}
+      <Typography variant="h6" sx={{ fontWeight: 700 }}>
+        Selected Size: {selectedSize || 'None'}
+      </Typography>
+
+      {/* Only render sizes if selectedProduct is available */}
+      {selectedProduct && (
+        <Box>
+          {/* Split sizes and trim spaces directly in JSX */}
+          {selectedProduct.size && 
+            selectedProduct.size.split(',').map(size => size.trim()).map((size, index) => (
+              <Button 
+                key={index}
+                variant="outlined" 
+                onClick={() => setSelectedSize(size)} // Set selected size
+                sx={{ margin: '0 5px' }}
+              >
+                {size.toUpperCase()} {/* Display size in uppercase */}
+              </Button>
+            ))}
+        </Box>
+      )}
+    </Box>
               <Box sx={{ mt: 2 }}>
                 <Typography variant="h6">Select Shipping Option</Typography>
                 <RadioGroup
@@ -495,7 +586,12 @@ const CategorySearch = () => {
       left: "50%",
       transform: "translate(-50%, -50%)",
       width: "90vw", // 90% of the viewport width
-      height: "90vh", // 90% of the viewport height
+      height: {
+        xs: "65vh", // 70% of viewport height on extra small screens (mobile)
+        sm: "75vh", // 80% on small screens (tablets)
+        md: "80vh", // 85% on medium screens (desktops)
+        lg: "85vh", // 90% on larger screens
+      },
       bgcolor: "background.paper",
       border: "2px solid #000",
       boxShadow: 24,
@@ -545,18 +641,50 @@ const CategorySearch = () => {
           Copy
         </Button>
 
-        <Typography
-          id="check-product-details-modal"
-          variant="h6"
-          component="h2"
-        >
+        <Box sx={{ display: 'flex', gap: { xs: 1, md: 2 }, flexDirection: { xs: 'column', md: 'row' },marginTop:"20px"}}>
+      <Box>
+      <Box style={{ width: '300px', margin: 'auto' }}>
+      {/* Slider for multiple images */}
+      <Box style={{ width: '300px', margin: 'auto' }}>
+      {/* Slider for multiple images */}
+      <Slider {...sliderSettings}>
+        {selectedProduct?.multipleimg?.map((imgUrl, index) => (
+          <Box
+            key={index}
+            onMouseMove={handleMouseMove}
+            style={{
+              height: '230px',
+              width: '300px',
+              marginTop: '10px',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            <img
+              src={imgUrl}
+              alt={`Product ${index}`}
+              style={{
+                height: '230px',
+              width: '300px',
+                objectFit: 'cover',
+                transition: 'transform 0.2s ease',
+                transform: `scale(${zoom.scale || 1})`, // Optional zoom effect
+              }}
+            />
+          </Box>
+        ))}
+      </Slider>
+    </Box>
+    </Box>
+      </Box>
+
+      <Box style={{marginLeft:"10px"}}>
+        {/* <Typography id="check-product-details-modal" variant="h6" component="h2">
           Types: {selectedProduct.types}
-        </Typography>
-        <Box style={{ fontWeight: "700" }}>
+        </Typography> */}
+        <Box style={{ fontWeight: '700' }}>
           {user && user.email ? (
-            <Typography variant="body">
-              Price: {selectedProduct.ProductPrice}
-            </Typography>
+            <Typography variant="body">Price: {selectedProduct.ProductPrice}</Typography>
           ) : null}
         </Box>
         <Typography variant="body1" sx={{ fontWeight: 700 }}>
@@ -565,12 +693,31 @@ const CategorySearch = () => {
         <Typography variant="body1" sx={{ fontWeight: 700 }}>
           Size: {selectedProduct.size}
         </Typography>
-        <Typography variant="body1" sx={{ fontWeight: 700 }}>
+        {/* <Typography variant="body1" sx={{ fontWeight: 700 }}>
           Fabric: {selectedProduct.Fabric}
-        </Typography>
-        <Typography variant="body1" sx={{ fontWeight: 700 }}>
-          Description: {selectedProduct.description}
-        </Typography>
+        </Typography> */}
+        <Typography
+        variant="body1"
+        sx={{
+          fontWeight: 700,
+          whiteSpace: 'pre-line',
+          lineHeight: 1,
+        }}
+      >
+        Description: {selectedProduct.description}
+      </Typography>
+
+        <Box sx={{display:"flex",gap:1}}>
+        <Button
+        variant="contained"
+        sx={{ mt: 2, background: "#113350" }}>
+        <FcLike
+          onClick={() => handleLikeProducts(selectedProduct)} // Like handler
+          style={{ cursor: "pointer",fontSize:"20px" , color:"white"}} // Make it look clickable
+        />
+        </Button>
+        <br/>
+
 
         {/* Close Button */}
         <Button
@@ -580,10 +727,19 @@ const CategorySearch = () => {
         >
           Close
         </Button>
+        </Box>
+      </Box>
+    </Box>
+        
+
+         {/* Like Button */}
+        
       </>
     )}
   </Box>
 </Modal>
+
+
 
 <Footer/>
 

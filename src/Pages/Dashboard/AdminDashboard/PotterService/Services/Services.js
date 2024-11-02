@@ -49,7 +49,7 @@ const Services = () => {
       console.log(book)
 
       useEffect(()=>{
-        fetch('https://sellerportal.vercel.app/potterservice')
+        fetch('https://tapbrust-backend.onrender.com/potterservice')
         .then(res=>res.json())
         .then(data=>setBook(data))
     },[])

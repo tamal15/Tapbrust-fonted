@@ -12,7 +12,7 @@ import TableOrderRow from './TableOrderRow';
 const TableShow = () => {
     const [model, setModel] = useState([]);
     const fetchData = () => {
-        fetch('https://sellerportal.vercel.app/feedback')
+        fetch('https://tapbrust-backend.onrender.com/feedback')
           .then(res => res.json())
           // .then(data => setWork(data))
           .then(data => {

@@ -10,7 +10,7 @@ const OrderDetails = () => {
 
     useEffect(() => {
         // Fetch orders by status
-        fetch(`https://sellerportal.vercel.app/orders?status=${status}`)
+        fetch(`https://tapbrust-backend.onrender.com/orders?status=${status}`)
             .then(res => res.json())
             .then(data => setOrders(data));
     }, [status]);

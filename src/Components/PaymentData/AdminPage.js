@@ -10,12 +10,11 @@ const AdminPage = () => {
     // Fetch users awaiting verification
     const fetchPendingUsers = async () => {
       try {
-        const response = await fetch('https://sellerportal.vercel.app/usersdata/pending');
+        const response = await fetch('https://tapbrust-backend.onrender.com/usersdata/pending');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        // Ensure data is an array
         if (Array.isArray(data)) {
           setPendingUsers(data);
         } else {
@@ -29,51 +28,78 @@ const AdminPage = () => {
     fetchPendingUsers();
   }, []);
 
-  const handleVerify = async (email) => {
+  const handleVerify = async (id) => {
     try {
-      await fetch(`https://sellerportal.vercel.app/verify-payment/${email}`, {
+      await fetch(`https://tapbrust-backend.onrender.com/verify-payment/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' }
       });
       // Update local state after successful verification
-      setPendingUsers(pendingUsers.filter(user => user.email !== email));
+      setPendingUsers(pendingUsers.filter(user => user._id !== id));
     } catch (error) {
       console.error('Error verifying user:', error);
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`https://tapbrust-backend.onrender.com/delete-user/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (response.ok) {
+        // Remove the deleted user from the state to update the UI
+        setPendingUsers(pendingUsers.filter(user => user._id !== id));
+      } else {
+        console.error('Failed to delete user');
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
   return (
     <Container>
-      <h2 className="my-4">Admin Verification Page</h2>
+      <h2 className="my-4 text-white">Admin Verification Page</h2>
       <Table striped bordered hover>
-        <thead>
-          <tr>
+        <thead className='text-white'>
+          <tr className='text-white'>
             <th>Name</th>
             <th>Email</th>
             <th>Payment Details</th>
             <th>Action</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {pendingUsers?.length > 0 ? (
             pendingUsers?.map(user => (
-              <tr key={user.email}>
-                <td>{user.displayName}</td>
-                <td>{user.email}</td>
-                <td>{user.bkashNumber}</td>
+              <tr key={user._id}>
+                <td className='text-white'>{user.displayName}</td>
+                <td className='text-white'>{user.email}</td>
+                <td className='text-white'>{user.bkashNumber}</td>
                 <td>
                   <Button
                     variant="success"
-                    onClick={() => handleVerify(user.email)}
+                    onClick={() => handleVerify(user._id)}
                   >
                     Verify
+                  </Button>
+                </td>
+                <td>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(user._id)}
+                  >
+                    Delete
                   </Button>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="4">No pending users</td>
+              <td colSpan="5">No pending users</td>
             </tr>
           )}
         </tbody>

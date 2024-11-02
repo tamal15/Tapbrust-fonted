@@ -49,7 +49,7 @@ const CartOrder = ({ cart }) => {
                                     <br />
                                     <Typography style={{ fontWeight: 700 }} variant="body">
                                         <span > Size:</span>
-                                        {single?.size}
+                                        {single?.selectedSize}
                                     </Typography>
                                     <br />
                                     <Typography style={{ fontWeight: 700 }} variant="body">

@@ -1,42 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../Hooks/useAuth';
-import { Box, Typography, Grid, Button } from '@mui/material';
-import OrderPage from './OrderPage';
-import WalletPage from './WalletPage';
-import RefferPage from './RefferPage';
-import InfoPage from './InfoPage';
-import { Link } from 'react-router-dom';
+import { Box, Typography, Grid, Button, Badge } from '@mui/material';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-// Importing icons from React Icons
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube, FaEnvelope } from 'react-icons/fa';
-import SupportTicketForm from './SupportTicket';
-import SupportTicketsList from './ShowSupportTicket';
-import Dashboard from './UserDashboard';
-import UserProfile from '../../Pages/Dashboard/UserProfile/UserProfile';
-import Header from '../../Shared/Header/Header';
-import Footer from '../../Shared/Footer/Footer';
-import UserDashboard from './UserDashboard';
-import NewUserDashboard from './UserDashboard';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import HomeIcon from '@mui/icons-material/Home';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import RefferPage from './RefferPage';
+import Swal from 'sweetalert2';
 
 const FirstProfile = () => {
   const { user } = useAuth(); // Get the current logged-in user
-  const [userData, setUserData] = useState({ name: '', email: '', referralCode: '', tran_id:'' });
-  const [activePage, setActivePage] = useState(''); // State to track which page to display
-
-  
+  const [userData, setUserData] = useState({ name: '', email: '', referralCode: '', tran_id: '' });
 
   // Fetch user details from the backend
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`https://sellerportal.vercel.app/api/user-details?email=${user.email}`);
+        const response = await fetch(`https://tapbrust-backend.onrender.com/api/user-details?email=${user.email}`);
         const data = await response.json();
         if (data) {
           setUserData({
             name: data.name,
             email: data.email,
             referralCode: data.referralCode,
-            tran_id:data.tran_id
+            tran_id: data.tran_id,
           });
         }
       } catch (error) {
@@ -49,286 +39,205 @@ const FirstProfile = () => {
     }
   }, [user.email]);
 
-  // Function to handle navigation between different pages
-  const handlePageChange = (page) => {
-    setActivePage(page);
+  const copyToClipboard = () => {
+    const link = `${userData.tran_id}`;
+    navigator.clipboard.writeText(link)
+      .then(() => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Link copied to clipboard!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
+      })
+      .catch(err => {
+        console.error('Error copying link: ', err);
+      });
   };
 
-  const copyToClipboard = () => {
-    const link = `http://localhost:3000/newregister?tran_id=${userData.tran_id}`;
-    navigator.clipboard.writeText(link).then(() => {
-      alert('Link copied to clipboard!');
-    }).catch(err => {
-      console.error('Error copying link: ', err);
-    });
-  };
+
+  const [questions, setQuestions] = useState([]);
+  const [newNoticeCount, setNewNoticeCount] = useState(0);
+  const location = useLocation();  // Used to track the current route
+
+  // Fetch notices from the backend
+  useEffect(() => {
+    const fetchNotices = async () => {
+      try {
+        const response = await fetch('https://tapbrust-backend.onrender.com/shownotice');
+        const data = await response.json();
+        setQuestions(data);
+
+        // Get the number of viewed notices from localStorage
+        const viewedNoticesCount = parseInt(localStorage.getItem('viewedNoticesCount')) || 0;
+
+        // New notices = current notice count minus the viewed notices count from localStorage
+        const newNotices = data.length - viewedNoticesCount;
+
+        // Update the notification count if new notices are available
+        if (newNotices > 0) {
+          setNewNoticeCount(newNotices);
+        }
+      } catch (error) {
+        console.error('Error fetching notices:', error);
+      }
+    };
+
+    fetchNotices();
+  }, []);
+
+  // Reset notification count when the user navigates to the notice page
+  useEffect(() => {
+    if (location.pathname === '/showNotice') {
+      // Save the current notice count as viewed in localStorage
+      localStorage.setItem('viewedNoticesCount', questions.length);
+      setNewNoticeCount(0);  // Reset the notification count
+    }
+  }, [location, questions.length]);
+
 
   return (
-    <Box className="dashboard">
-      <Header/>
-      <Box
-  sx={{
-    p: 3, // Padding for the outer box
-    mt: 4, // Margin from the top
-    border: '1px solid #ddd', // Light border
-    borderRadius: '8px', // Rounded corners
-    backgroundColor: 'white', // Light gray background
-     boxShadow: "0px 10px 22px rgb(42 135 158 / 50%)",
-    marginLeft:"10px",
-    marginRight:"10px"
-  }}
->
-  <Typography variant="h4" style={{color:"black",fontWeight:"700"}} gutterBottom align="center">
-    Welcome, {userData.name}
-  </Typography>
-  <Grid container spacing={2} sx={{ mt: 2 }}>
-    <Grid item xs={12} sm={3}> {/* Adjusting Grid size for responsiveness */}
+    <Box
+    sx={{
+      height: '95vh',
+      backgroundImage: 'url("https://i.ibb.co.com/fQHbxSs/IMG-20241019-025435.jpg")', // Set the background image here
+      backgroundSize: 'cover', // Ensures the image covers the entire page
+      backgroundPosition: 'center', // Centers the image
+      backgroundRepeat: 'no-repeat', // Prevents the image from repeating
+      color: '#fff',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+    }}
+    className="background-theme"
+    >
+      {/* Top section with user data */}
       <Box
         sx={{
-          p: 2,
-          border: '1px solid #eee',
+          p: 3,
+          mt: 4,
+          // border: '1px solid #ddd',
           borderRadius: '8px',
-          backgroundColor: '#427bb1',
-          color:"white",
-          textAlign: 'left',
-           height:"130px"
+          mx: "20px",
+          textAlign: "center",
+          backgroundImage: `
+          linear-gradient(
+            rgba(255, 0, 150, 0.5), /* First color - pinkish */
+           rgb(22, 41, 56),
+           rgb(16, 19, 26)
+           
+          )`,
         }}
       >
-        <Typography variant="h6">
-          Name: <strong>{userData.name}</strong>
+        <Typography variant="h4" sx={{ color: "white", fontWeight: 700 }} gutterBottom>
+          Welcome, {userData.name}
         </Typography>
-      </Box>
-    </Grid>
-
-    <Grid item xs={12} sm={3}>
-      <Box
-        sx={{
-          p: 2,
-          border: '1px solid #eee',
-          borderRadius: '8px',
-          backgroundColor: '#113350',
-          color:"white",
-          textAlign: 'left',
-           height:"130px"
-        }}
-      >
-        <Typography variant="h6">
-          Email: <strong>{userData.email}</strong>
+        <Typography variant="h6" sx={{ color: "white", fontWeight: 600 }}>
+          {userData.email}
         </Typography>
-      </Box>
-    </Grid>
-
-    <Grid item xs={12} sm={3}>
-      <Box
-        sx={{
-          p: 2,
-          border: '1px solid #eee',
-          borderRadius: '8px',
-          backgroundColor: '#427bb1',
-          color:"white",
-          textAlign: 'left',
-           height:"130px"
-        }}
-      >
-        <Typography variant="h6">
-         You Reffer: <strong>{userData.referralCode}</strong>
-        </Typography>
-      </Box>
-    </Grid>
-    
-    {/* Updated Grid with clickable tran_id */}
-    <Grid item xs={12} sm={3}>
-      <Box
-        sx={{
-          p: 2,
-          border: '1px solid #eee',
-          borderRadius: '8px',
-          backgroundColor: '#427bb1',
-          color:"white",
-          textAlign: 'left',
-          height:"130px",
-        }}
-      >
-        <Typography variant="h6">
-          MY Referral:  
-          
-            {userData.tran_id}
-          
-        </Typography>
-      </Box>
-    </Grid>
-    <div className='mt-3 ms-3' style={{display:"flex",justifyContent:"right"}}>
-      {/* The link */}
-      <Box
-       sx={{
-        p: 2,
-        border: '1px solid #eee',
-        borderRadius: '8px',
-        backgroundColor: '#113350',
-        color:"white",
-        textAlign: 'center',
-      }}>
-      <Link 
-      
-        to={`/newregister?tran_id=${userData.tran_id}`} 
-        style={{ color: "white", textDecoration: "none" }}
-      >
-        https://car-mechines.web.app/newregister?tran_id={userData.tran_id}
-      </Link>
-      </Box>
-
-      {/* Copy button */}
-     <Box>
-     <Button
-        variant="contained" 
-        onClick={copyToClipboard}
-        startIcon={<ContentCopyIcon />} // Copy icon from Material-UI
-        style={{ marginLeft: '300px' }}
-      >
-        Copy Link
-      </Button>
-     </Box>
-    </div>
-  </Grid>
-</Box>
-
-
-      {/* Grid Layout for Order, Wallet, Refer, Info */}
-      <Grid 
-        container 
-        spacing={2} 
-        mt={4} 
-        justifyContent="center" 
-        sx={{ paddingX: 4 }}  // Adjust left and right padding
-      >
-        <Grid item xs={12} sm={6} md={3}>
-          <Box 
-            textAlign="center" 
-            sx={{ backgroundColor: '#113350', color: 'white', padding: 2, cursor: 'pointer', borderRadius: "10px" }}
-            onClick={() => handlePageChange('order')}
+        <Grid container spacing={2} justifyContent="center" sx={{ mt: 2 }}>
+          <Box sx={{ p: 2, border: '1px solid #eee', borderRadius: '8px', backgroundColor: 'rgba(255, 0, 150, 0.5)' }}>
+            <h5
+              // to={`/newregister?tran_id=${userData.tran_id}`}
+              // to={`/newregister?tran_id=${userData.tran_id}`}
+              style={{ color: "white", textDecoration: "none" }}
+            >
+             {userData.tran_id?.slice(0, 8)}
+            </h5>
+          </Box>
+          <Button
+            variant="contained"
+            onClick={copyToClipboard}
+            startIcon={<ContentCopyIcon />}
+            sx={{ ml: 3,mt:1, backgroundColor: 'rgba(255, 0, 150, 0.5)', color: 'white' }}
           >
-            <Typography variant="h6">Order</Typography>
-          </Box>
+            Copy Referral Code
+          </Button>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Box 
-            textAlign="center" 
-            sx={{ backgroundColor: '#427bb1', color: 'white', padding: 2, cursor: 'pointer', borderRadius: "10px" }}
-            onClick={() => handlePageChange('wallet')}
-          >
-            <Typography variant="h6">Wallet</Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Box 
-            textAlign="center" 
-            sx={{ backgroundColor: '#113350', color: 'white', padding: 2, cursor: 'pointer', borderRadius: "10px" }}
-            onClick={() => handlePageChange('refer')}
-          >
-            <Typography variant="h6">Refer</Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Box 
-            textAlign="center" 
-            sx={{ backgroundColor: '#427bb1', color: 'white', padding: 2, cursor: 'pointer', borderRadius: "10px" }}
-            onClick={() => handlePageChange('info')}
-          >
-            <Typography variant="h6">Info</Typography>
-          </Box>
-        </Grid>
-      </Grid>
-      
-      {/* Render the selected page based on the activePage state */}
-      <Box mt={4}>
-        {activePage === 'order' && <OrderPage />}
-        {activePage === 'wallet' && <NewUserDashboard />}
-        {activePage === 'refer' && <RefferPage />}
-        {activePage === 'info' && <UserProfile />}
       </Box>
 
-      {/* Only show below sections when no specific page is active */}
-      {activePage === '' && (
-        <>
-          {/* YouTube Video Embedding */}
-          <Box mt={4} style={{ textAlign: "left", marginLeft: "30px" }}>
-            <Typography style={{ marginBottom: "20px", fontWeight: "600" }} variant="h4">Support Tutorial</Typography>
-            <iframe
-              width="360"
-              height="215"
-              src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </Box>
+      {/* Middle content */}
+      <Box sx={{ p: 3, textAlign: "center",  backgroundImage: `
+            linear-gradient(
+              rgba(255, 0, 150, 0.5), /* First color - pinkish */
+             rgb(22, 41, 56),
+             rgb(16, 19, 26)
+             
+            )`,  flex: 1,  
+            overflowY: 'auto', flexGrow: 1 ,marginBottom:"90px",marginTop:"20px",mx: "20px",borderRadius: '8px'}}> {/* Added flexGrow */}
+       
+        
+        <RefferPage/>
+        
+      </Box>
 
-          {/* Contact Us Section with 2 Rows and 3 Columns */}
-          <Box mt={4} style={{ textAlign: "left", marginLeft: "30px" }}>
-            <Typography style={{ marginBottom: "20px", fontWeight: "600" }} variant="h4">Contact Us</Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Box style={{ display: "flex", alignItems: "center" }}>
-                  <FaFacebook size={24} style={{ marginRight: "10px" }} />
-                  <Box>
-                    <Typography><Link style={{ textDecoration: "none", color: "black" }} to="/">Follow us on Facebook</Link></Typography>
-                  </Box>
-                </Box>
-              </Grid>
-              <Grid item xs={4}>
-                <Box style={{ display: "flex", alignItems: "center" }}>
-                  <FaTwitter size={24} style={{ marginRight: "10px" }} />
-                  <Box>
-                    <Typography><Link style={{ textDecoration: "none", color: "black" }} to="/">Follow us on Twitter</Link></Typography>
-                  </Box>
-                </Box>
-              </Grid>
-              <Grid item xs={4}>
-                <Box style={{ display: "flex", alignItems: "center" }}>
-                  <FaInstagram size={24} style={{ marginRight: "10px" }} />
-                  <Box>
-                    <Typography><Link style={{ textDecoration: "none", color: "black" }} to="/">Follow us on Instagram</Link></Typography>
-                  </Box>
-                </Box>
-              </Grid>
-              <Grid item xs={4}>
-                <Box style={{ display: "flex", alignItems: "center" }}>
-                  <FaLinkedin size={24} style={{ marginRight: "10px" }} />
-                  <Box>
-                    <Typography><Link style={{ textDecoration: "none", color: "black" }} to="/">Connect with us on LinkedIn</Link></Typography>
-                  </Box>
-                </Box>
-              </Grid>
-              <Grid item xs={4}>
-                <Box style={{ display: "flex", alignItems: "center" }}>
-                  <FaYoutube size={24} style={{ marginRight: "10px" }} />
-                  <Box>
-                    <Typography><Link style={{ textDecoration: "none", color: "black" }} to="/">Subscribe to our YouTube</Link></Typography>
-                  </Box>
-                </Box>
-              </Grid>
-              <Grid item xs={4}>
-                <Box style={{ display: "flex", alignItems: "center" }}>
-                  <FaEnvelope size={24} style={{ marginRight: "10px" }} />
-                  <Box>
-                    <Typography><Link style={{ textDecoration: "none", color: "black" }} to="/">Email Us</Link></Typography>
-                  </Box>
-                </Box>
-              </Grid>
-            </Grid>
-          </Box>
-
-          {/* Support Ticket Form and List */}
-          <Box mt={4} style={{ textAlign: "left", marginLeft: "30px" }}>
-            <SupportTicketForm />
-          </Box>
-          <Box mt={4} style={{ textAlign: "left", marginLeft: "30px" }}>
-            <SupportTicketsList />
-          </Box>
-        </>
-      )}
-      <Footer/>
+      {/* Bottom Navbar */}
+      <Box sx={{
+          position: 'fixed',  // Fix the navbar at the bottom
+          bottom: 0,
+          left: 0,
+          right: 0,
+          backgroundImage: `
+            linear-gradient(
+              rgba(255, 0, 150, 0.5), 
+              rgb(22, 41, 56),
+              rgb(16, 19, 26)
+            )`,
+          padding: '10px',
+          display: 'flex',
+          justifyContent: 'space-around',
+          borderTop: '1px solid #444',
+        }}>
+      <Box>
+          <NavLink style={{ color: 'white', textDecoration: 'none' }} to="/showNotice">
+            <Badge
+              badgeContent={newNoticeCount} 
+              color="error"
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              sx={{
+                '& .MuiBadge-badge': {
+                  transform: 'scale(1.1)',
+                  zIndex:2
+                },
+              }}
+            >
+              <Button
+                startIcon={
+                  <NotificationsIcon sx={{ color: '#ff7e5f', fontSize: '45px', fontWeight: 'bold' }} />  // Adjust icon size
+                }
+              />
+            </Badge>
+            <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Notice</Typography>
+          </NavLink>
+        </Box>
+       <Box>
+       <NavLink style={{ color: 'white', textDecoration: 'none' }} to="/firstProfile">
+          <Button startIcon={<GroupAddIcon sx={{ color: '#43cea2',fontSize: '50px' }} />}></Button>
+          <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Invite</Typography>
+        </NavLink>
+       </Box>
+        <Box>
+        <NavLink style={{ color: 'white', textDecoration: 'none' }} to="/">
+          <Button startIcon={<HomeIcon sx={{ color: '#4ac7e6',fontSize: '50px' }} />}></Button>
+          <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Home</Typography>
+        </NavLink>
+        </Box>
+       <Box>
+       <NavLink style={{ color: 'white', textDecoration: 'none' }} to="/showEarn">
+          <Button startIcon={<ListAltIcon sx={{ color: '#0f0',fontSize: '50px' }} />}></Button>
+          <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Earn</Typography>
+        </NavLink>
+       </Box>
+       <Box>
+       <NavLink style={{ color: 'white', textDecoration: 'none' }} to="/showWallet">
+          <Button startIcon={<AccountBalanceWalletIcon sx={{ color: '#ffb600',fontSize: '50px' }} />}></Button>
+          <Typography sx={{ fontWeight: 'bold', fontSize: '16px' }}>Wallet</Typography>
+        </NavLink>
+       </Box>
+      </Box>
     </Box>
   );
 };

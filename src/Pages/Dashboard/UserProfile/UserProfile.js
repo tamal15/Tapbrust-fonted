@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaEdit } from 'react-icons/fa';
 import useAuth from '../../../Hooks/useAuth';
-import UserUpdateProfile from './UserUpdateProfile'; // Import the component
 
 import './UserProfile.css';
 
@@ -12,7 +11,7 @@ const UserProfile = () => {
   const [editMode, setEditMode] = useState(false); // State to control form visibility
 
   useEffect(() => {
-    fetch(`https://sellerportal.vercel.app/updateUser/${user.email}`)
+    fetch(`https://tapbrust-backend.onrender.com/updateUser/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setUserInfo(data);
@@ -86,9 +85,7 @@ const UserProfile = () => {
       </div>
 
       {/* Conditionally render the UserUpdateProfile form below */}
-      {editMode && (
-        <UserUpdateProfile userInfo={userInfo} setEditMode={setEditMode} />
-      )}
+    
     </div>
   );
 };

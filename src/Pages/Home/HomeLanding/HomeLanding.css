@@ -1,0 +1,62 @@
+.robot-image {
+    animation: bounce 2s infinite, moveAll 3s infinite; /* Animation durations and infinite loops */
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0); /* Initial position */
+    }
+    40% {
+      transform: translateY(-20px); /* Move up */
+    }
+    60% {
+      transform: translateY(-10px); /* Move down */
+    }
+  }
+  
+  @keyframes moveAll {
+    0% {
+      transform: translate(0, 0); /* Start position */
+    }
+    25% {
+      transform: translate(20px, 20px); /* Move down-right */
+    }
+    50% {
+      transform: translate(-20px, -20px); /* Move up-left */
+    }
+    75% {
+      transform: translate(20px, -20px); /* Move up-right */
+    }
+    100% {
+      transform: translate(0, 0); /* Back to start */
+    }
+  }
+  
+
+  .robot-image {
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .robot-image:hover {
+    transform: rotate(10deg) translateY(-10px) scale(1.05);
+  }
+  
+  /* Animation for hand and leg movement */
+  @keyframes handLegMove {
+    0% {
+      transform: rotate(0deg) translateY(0);
+    }
+    50% {
+      transform: rotate(5deg) translateY(-5px);
+    }
+    100% {
+      transform: rotate(0deg) translateY(0);
+    }
+  }
+  
+  .robot-image:hover {
+    animation: handLegMove 0.8s infinite;
+  }
+  
+
+  

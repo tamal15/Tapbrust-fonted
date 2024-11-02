@@ -108,6 +108,16 @@ const CustomerAddress = ({ order, handleDelete }) => {
                     </Grid>
                 </Grid>
             </ListItem>
+            <ListItem button divider>
+                <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                        <Typography style={addressStyle}><span>Courier_id</span><span>:</span></Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Typography> {order?.courier_id}</Typography>
+                    </Grid>
+                </Grid>
+            </ListItem>
 
             <ListItem button divider>
                 <Grid container spacing={2}>

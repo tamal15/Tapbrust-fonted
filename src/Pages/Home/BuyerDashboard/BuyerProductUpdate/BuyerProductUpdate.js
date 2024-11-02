@@ -19,7 +19,7 @@ const BuyerProductUpdate = () => {
     const handle = (id) => {
         // e.preventDefault()
         // data.complete = true
-        fetch(`https://sellerportal.vercel.app/updateProduct/${id}`, {
+        fetch(`https://tapbrust-backend.onrender.com/updateProduct/${id}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({user}),

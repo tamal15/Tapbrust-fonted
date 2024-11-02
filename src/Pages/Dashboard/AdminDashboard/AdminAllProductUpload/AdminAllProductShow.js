@@ -6,7 +6,6 @@ import Header from '../../../../Shared/Header/Header';
 import Footer from '../../../../Shared/Footer/Footer';
 import { CartContext } from '../../../../Context/CartContext';
 import Swal from 'sweetalert2';
-import SearchBar from '../../../ShareeCategories/TaterSharee/SearchBar';
 import { useNavigate } from 'react-router-dom';
 
 const AdminAllProductShow = () => {
@@ -23,7 +22,7 @@ const AdminAllProductShow = () => {
     const navigate = useNavigate();
 
     const fetchData = () => {
-        fetch(`https://sellerportal.vercel.app/adminShowproduct?page=${page}&size=${size}`)
+        fetch(`https://tapbrust-backend.onrender.com/adminShowproduct?page=${page}&size=${size}`)
             .then(res => res.json())
             .then(data => {
                 setModel(data.allQuestions);
@@ -68,7 +67,7 @@ const AdminAllProductShow = () => {
     };
 
     const handleLike = (id) => {
-        fetch(`https://sellerportal.vercel.app/adminlike/${id}`, {
+        fetch(`https://tapbrust-backend.onrender.com/adminlike/${id}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(userData)
@@ -80,7 +79,7 @@ const AdminAllProductShow = () => {
     };
 
     const handleUnLike = (id) => {
-        fetch(`https://sellerportal.vercel.app/adminunlike/${id}`, {
+        fetch(`https://tapbrust-backend.onrender.com/adminunlike/${id}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(userData)
@@ -125,7 +124,7 @@ const AdminAllProductShow = () => {
             <Header />
             <div className="container text-black mt-5 mb-5">
                 <div className="row">
-                    <SearchBar handleOnChange={handleOnChange} placeholder={placeholder} />
+                    {/* <SearchBar handleOnChange={handleOnChange} placeholder={placeholder} /> */}
                 </div>
                 <div className="row g-4">
                     <div style={{textAlign:"left",boxShadow: "0px 14px 22px rgb(42 135 158 / 50%)",padding:"25px 25px",marginTop:"88px"}} className="col-12 col-md-3 ">

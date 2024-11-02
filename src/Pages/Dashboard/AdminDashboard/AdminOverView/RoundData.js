@@ -5,17 +5,12 @@ import RoundedServiceCart from './RounndedServiceCart';
 
 const RoundData = () => {
     const [model, setModel] = useState([]);
-    useEffect(()=>{
-        fetch('https://sellerportal.vercel.app/adminShowproduct')
-        .then(res=>res.json())
-        .then(data => {
-            const sliceData = data.allQuestions.slice(0, 1);
+    useEffect(() => {
+        fetch('https://tapbrust-backend.onrender.com/adminConfarm')
+          .then((res) => res.json())
+          .then((data) => setModel(data.slice(0,1)));
+      }, []);
     
-            setModel(sliceData)
-    
-          })
-        // .then(data=>setModel(data.allQuestions))
-    },[]);
     return (
         <div>
              {

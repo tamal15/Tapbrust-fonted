@@ -39,7 +39,7 @@ const PotterserviceForm = () => {
    
 
      const handleLike = (id,data) => {
-        fetch(`https://sellerportal.vercel.app/service/${id}`, {
+        fetch(`https://tapbrust-backend.onrender.com/service/${id}`, {
           method: "PUT",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(design)
@@ -57,13 +57,13 @@ const PotterserviceForm = () => {
       
 
     useEffect(() => {
-        fetch(`https://sellerportal.vercel.app/potterservicedetails/${id}`)
+        fetch(`https://tapbrust-backend.onrender.com/potterservicedetails/${id}`)
           .then((res) => res.json())
           .then((data) => setBook(data));
       }, [id]);
   
     const fetchData = () => {
-        fetch(`https://sellerportal.vercel.app/potterservicedetails/${id}`)
+        fetch(`https://tapbrust-backend.onrender.com/potterservicedetails/${id}`)
           .then(res => res.json())
           // .then(data => setWork(data))
           .then(data => {

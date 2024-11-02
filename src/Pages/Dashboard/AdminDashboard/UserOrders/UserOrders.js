@@ -22,7 +22,7 @@ const UserOrders = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
     useEffect(()=>{
-        fetch(`https://sellerportal.vercel.app/userMy/${user?.email}`)
+        fetch(`https://tapbrust-backend.onrender.com/userMy/${user?.email}`)
         .then(res=>res.json())
         .then(data=>{
             setOrder(data)
@@ -41,7 +41,7 @@ const UserOrders = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://sellerportal.vercel.app/manageAllOrderDelete/${id}`)
+                axios.delete(`https://tapbrust-backend.onrender.com/manageAllOrderDelete/${id}`)
                     .then((response) => {
                         response.status === 204 &&
                             Swal.fire(

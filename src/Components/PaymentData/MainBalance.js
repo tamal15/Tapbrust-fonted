@@ -10,7 +10,7 @@ const MainBalance = ({ userId }) => {
     // Fetch user's main balance
     const fetchBalance = async () => {
       try {
-        const response = await axios.get(`https://sellerportal.vercel.app/api/users/${userId}/balance`);
+        const response = await axios.get(`https://tapbrust-backend.onrender.com/api/users/${userId}/balance`);
         if (response.data.success) {
           setBalance(response.data.mainBalance);
         } else {

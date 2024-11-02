@@ -22,7 +22,7 @@ const BuyerDashboard = () => {
         // data.status = 'Pending'
      
 
-        fetch("https://sellerportal.vercel.app/PostBuyer", {
+        fetch("https://tapbrust-backend.onrender.com/PostBuyer", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(data),

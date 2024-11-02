@@ -38,7 +38,7 @@ const AdminSeeDesign = () => {
     //   },[])
 
     const fetchData = () => {
-      fetch('https://sellerportal.vercel.app/userDesign')
+      fetch('https://tapbrust-backend.onrender.com/userDesign')
         .then(res => res.json())
         // .then(data => setWork(data))
         .then(data => {
@@ -74,7 +74,7 @@ const AdminSeeDesign = () => {
 
 
     const handleLike = (id) => {
-      fetch(`https://sellerportal.vercel.app/like/${id}`, {
+      fetch(`https://tapbrust-backend.onrender.com/like/${id}`, {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(userData)
@@ -93,7 +93,7 @@ const AdminSeeDesign = () => {
   
     }
     const handleUnLike = (id) => {
-      fetch(`https://sellerportal.vercel.app/unlike/${id}`, {
+      fetch(`https://tapbrust-backend.onrender.com/unlike/${id}`, {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(userData)

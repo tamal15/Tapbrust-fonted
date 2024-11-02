@@ -10,7 +10,7 @@ const AdminSeeSuport = () => {
   // useEffect(() => {
   //   const fetchTickets = async () => {
   //     try {
-  //       const response = await fetch('https://sellerportal.vercel.app/api/support-tickets');
+  //       const response = await fetch('https://tapbrust-backend.onrender.com/api/support-tickets');
   //       const data = await response.json();
   //       setTickets(data);
   //     } catch (error) {
@@ -24,7 +24,7 @@ const AdminSeeSuport = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await fetch(`https://sellerportal.vercel.app/api/support-tickets`); // Use correct URL format
+        const response = await fetch(`https://tapbrust-backend.onrender.com/api/support-tickets`); // Use correct URL format
         const data = await response.json();
         setTickets(data);
       } catch (error) {
@@ -57,7 +57,7 @@ const AdminSeeSuport = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://sellerportal.vercel.app/ticketdelete/${id}`, {
+        fetch(`https://tapbrust-backend.onrender.com/ticketdelete/${id}`, {
           method: 'DELETE'
         })
           .then(res => res.json())

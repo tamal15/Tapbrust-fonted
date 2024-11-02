@@ -11,7 +11,7 @@ const PaymentData = () => {
 
     try {
       // Send the data to the backend
-      const response = await axios.post('https://sellerportal.vercel.app/api/payments', {
+      const response = await axios.post('https://tapbrust-backend.onrender.com/api/payments', {
         bkashNumber,
         refCode,
       });

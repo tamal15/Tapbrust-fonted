@@ -23,13 +23,13 @@ const AdminOverView = () => {
 
 
     useEffect(() => {
-        fetch(`https://sellerportal.vercel.app/adminConfarm`)
+        fetch(`https://tapbrust-backend.onrender.com/adminConfarm`)
             .then((res) => res.json())
             .then((data) => setQuestions(data));
             // console.log(data)
     }, []);
     useEffect(()=>{
-        fetch(`https://sellerportal.vercel.app/userMy/${user?.email}`)
+        fetch(`https://tapbrust-backend.onrender.com/userMy/${user?.email}`)
         .then(res=>res.json())
         .then(data=>{
             setOrder(data)
@@ -37,16 +37,16 @@ const AdminOverView = () => {
     },[user?.email])
 
     useEffect(()=>{
-        fetch('https://sellerportal.vercel.app/adminShowproduct')
+        fetch('https://tapbrust-backend.onrender.com/adminShowproduct')
         .then(res=>res.json())
         .then(data=>setModel(data.allQuestions))
     },[])
 
     
   
-    const managePost = ordering?.filter(question => question?.status === 'Pending');
+    const managePost = questions?.filter(question => question?.status === 'pending');
      console.log(managePost)
-    const approved = ordering?.filter(question => question?.status === 'approved');
+    const approved = questions?.filter(question => question?.status === 'verified');
      console.log(approved)
     return (
         <Grid container spacing={2}>
@@ -58,7 +58,7 @@ const AdminOverView = () => {
                                     display: 'flex',
                                     justifyContent: "space-between"
                                 }}>
-                                    <Typography variant='body1' >Sales</Typography>
+                                    <Typography variant='body1' >Users</Typography>
                                     <IconButton
                                         sx={{
                                             background: 'hsl(215deg 69% 90%)',
@@ -90,7 +90,7 @@ const AdminOverView = () => {
                                 </Box>
                                 <h5 style={{textAlign:"left",marginTop:"8px"}}>{managePost.length}</h5>
                                 {/* <Typography variant='h5' gutterBottom>$<CountUp end={allData.earning} /></Typography> */}
-                                <h5 className='mt-3' style={{textAlign:"left"}} variant='body1' component={'span'}>Order <span style={{color:"red"}}> Pending</span></h5>
+                                <h5 className='mt-3' style={{textAlign:"left"}} variant='body1' component={'span'}>User <span style={{color:"red"}}> Pending</span></h5>
 
                             </Paper>
                         </Grid>
@@ -110,7 +110,7 @@ const AdminOverView = () => {
                                 </Box>
                                 <h5 style={{textAlign:"left",marginTop:"8px"}}>{approved.length}</h5>
                                 {/* <Typography variant='h5' gutterBottom><CountUp end={allData.providers} /></Typography> */}
-                                <h5 className='mt-3' style={{textAlign:"left"}} variant='body1' component={'span'}>Order <span style={{color:"red"}}>  Approved</span></h5>
+                                <h5 className='mt-3' style={{textAlign:"left"}} variant='body1' component={'span'}>User <span style={{color:"red"}}>  Approved</span></h5>
                                
                             </Paper>
                         </Grid>
@@ -128,9 +128,9 @@ const AdminOverView = () => {
                                         }}
                                     > <LocalGroceryStoreIcon></LocalGroceryStoreIcon></IconButton>
                                 </Box>
-                                <h5 style={{textAlign:"left",marginTop:"8px"}}>{model.length}</h5>
+                                <h5 style={{textAlign:"left",marginTop:"8px"}}>0</h5>
                                 {/* <Typography variant='h5' gutterBottom><CountUp end={allData.orders} /></Typography> */}
-                                <h5 className='mt-3' style={{textAlign:"left"}} variant='body1' component={'span'}>Total <span style={{color:"red"}}> Product </span></h5>
+                                <h5 className='mt-3' style={{textAlign:"left"}} variant='body1' component={'span'}>Total <span style={{color:"red"}}> Data </span></h5>
                                 
                                
                             </Paper>

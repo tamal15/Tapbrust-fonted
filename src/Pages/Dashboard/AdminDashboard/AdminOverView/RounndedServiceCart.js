@@ -34,9 +34,9 @@ const RoundedServiceCart = ({round}) => {
     //     }
     //   ];
     const data = [
-        { "name": 'ProductPrice', "value": parseInt(round.ProductPrice ) },
-        { "name": 'ProductPrice', "value": parseInt(round.ProductPrice ) },
-        { "name": 'rating', "value": parseInt(round.ProductPrice) }
+        { "name": 'parcentage', "value": parseInt(round.parcentage ) },
+        { "name": 'disparcentage', "value": parseInt(round.disparcentage ) },
+        { "name": 'parcentage', "value": parseInt(round.parcentage) }
     ];
     console.log(data)
     return (

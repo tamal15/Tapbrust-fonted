@@ -47,7 +47,7 @@ const MyOrder = () => {
   const fetchOrders = async (status = '', date = '') => {
     try {
       const response = await fetch(
-        `https://sellerportal.vercel.app/myOrder/${user?.email}?status=${status}&date=${date}`
+        `https://tapbrust-backend.onrender.com/myOrder/${user?.email}?status=${status}&date=${date}`
       );
       if (!response.ok) {
         throw new Error('Network response was not ok.');
@@ -82,7 +82,7 @@ const MyOrder = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await axios.delete(`https://sellerportal.vercel.app/manageAllOrderDelete/${id}`);
+          const response = await axios.delete(`https://tapbrust-backend.onrender.com/manageAllOrderDelete/${id}`);
           if (response.status === 200) {
             // Update state after deletion
             setOrder((prevOrdering) => prevOrdering.filter((order) => order._id !== id));

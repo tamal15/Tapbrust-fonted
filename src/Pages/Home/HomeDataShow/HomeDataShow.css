@@ -33,7 +33,7 @@
 /* Media query for extra medium screens (481px to 767px) */
 @media (min-width: 481px) and (max-width: 767px) {
   .photoShops img {
-    height: auto; /* Allow image height to adjust based on aspect ratio */
+    height: 120px !important; /* Allow image height to adjust based on aspect ratio */
     width: 100% !important; /* Ensure the image fills the width of the container */
     border-radius: 10px; /* Adjust border-radius for extra medium screens */
   }
@@ -42,7 +42,7 @@
 /* Media query for small screens (below 480px) */
 @media (max-width: 480px) {
   .photoShops img {
-    height: auto; /* Let height adjust based on image ratio */
+    height: 120px !important; /* Let height adjust based on image ratio */
     width: 100% !important; /* Ensure the image fits within the container width */
     border-radius: 8px; /* Slightly smaller border-radius for small screens */
     max-width: 100%; /* Ensure it never exceeds the container width */

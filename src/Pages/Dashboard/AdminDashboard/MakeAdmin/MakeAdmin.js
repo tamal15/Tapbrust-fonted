@@ -9,7 +9,7 @@ const MakeAdmin = () => {
     }
     const handleAdmin=e=>{
         const user={email}
-        fetch('https://sellerportal.vercel.app/userLogin/admin',{
+        fetch('https://tapbrust-backend.onrender.com/userLogin/admin',{
             method:'PUT',
             headers:{
                 'content-type':'application/json'

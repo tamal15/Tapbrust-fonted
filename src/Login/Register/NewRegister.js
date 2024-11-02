@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
-import { Alert } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import './Register.css';
 import useAuth from '../../Hooks/useAuth';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -27,7 +27,7 @@ const NewRegister = () => {
     const fetchUserData = async () => {
       if (user?.email) {
         try {
-          const response = await fetch(`https://sellerportal.vercel.app/users/${user.email}`);
+          const response = await fetch(`https://tapbrust-backend.onrender.com/users/${user.email}`);
           
           // Check if the response status is OK (status code 200-299)
           if (!response.ok) {
@@ -55,10 +55,7 @@ const NewRegister = () => {
   // Form handling
   const { register, handleSubmit } = useForm();
   const onSubmit = data => {
-    if (data.password !== data.password2) {
-      alert('Your passwords do not match');
-      return;
-    }
+    
 
     // Register the user with payment details
     registerUser(
@@ -78,28 +75,48 @@ const NewRegister = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const togglePassword2Visibility = () => {
-    setShowPassword2((prevState) => !prevState);
-  };
+  
 
   return (
     <div>
-      <div className='signin-background'>
+      <Box sx={{
+        height: '200vh',
+        backgroundImage: 'url("https://i.ibb.co.com/fQHbxSs/IMG-20241019-025435.jpg")', // Set the background image here
+        backgroundSize: 'cover', // Ensures the image covers the entire page
+        backgroundPosition: 'center', // Centers the image
+        backgroundRepeat: 'no-repeat', // Prevents the image from repeating
+        color: '#fff',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+      className="background-theme">
         <div className='py-5'>
           <Container>
             <Row>
               <div className='row'>
                 <div className='col-lg-4'>
                   <div className='image-change'>
-                    <img data-aos="zoom-in" height="430" width="370" src='https://i.ibb.co/PYRQwwP/1622955529676.png' alt="" />
+                  <img
+                      src="https://i.ibb.co/qjkFFfL/Photoleap-18-10-2024-15-20-53-AUWr-W-removebg-preview.png"
+                      alt="Robot"
+                      width="400"
+                      className="robot-image"
+                    />
                   </div>
                 </div>
                 <div className='col-lg-8'>
                   <Col md={{ span: 8, offset: 2 }}>
-                    <div className="login-form text-center" style={{ background: "#113350", borderRadius: "20px" }}>
-                      <h2 className='text-white'>Sign Up to SARONG</h2>
+                    <div className="login-form text-center" style={{backgroundImage: `
+            linear-gradient(
+              rgba(255, 0, 150, 0.5), /* First color - pinkish */
+             rgb(22, 41, 56),
+             rgb(16, 19, 26)
+             
+            )`}}>
+                      <h2 className='text-white'>Sign Up to TapBurst</h2>
                       <form onSubmit={handleSubmit(onSubmit)}>
-                        <input
+                      <input
                           className='w-75 mb-3'
                           {...register("name", { required: true })}
                           placeholder='Enter Full Name'
@@ -111,7 +128,7 @@ const NewRegister = () => {
                           placeholder='Enter Email'
                         />
                         <br />
-                        <div className="position-relative w-75 mb-3" style={{ marginLeft: "60px" }}>
+                        <div className="position-relative w-75 mb-3" style={{ marginLeft: "50px" }}>
                           <input
                             type={showPassword ? "text" : "password"}
                             className="form-control"
@@ -128,45 +145,16 @@ const NewRegister = () => {
                           </span>
                         </div>
 
-                        <div className="position-relative w-75 mb-3" style={{ marginLeft: "60px" }}>
-                          <input
-                            type={showPassword2 ? "text" : "password"}
-                            className="form-control"
-                            {...register("password2", { required: true })}
-                            placeholder="Re-enter Password"
-                            style={{ fontWeight: "500" }}
-                          />
-                          <span
-                            className="position-absolute top-50 end-0 translate-middle-y pe-3"
-                            style={{ cursor: "pointer" }}
-                            onClick={togglePassword2Visibility}
-                          >
-                            {showPassword2 ? <FaEyeSlash /> : <FaEye />}
-                          </span>
-                        </div>
-                        <input
-                          className='w-75 mb-3'
-                          {...register("bkashNumber", { required: true })}
-                          placeholder='bKash Number'
-                        />
-                        <br />
-                        {/* Reference Code field populated with data from backend */}
+                        
                         <input
                           className='w-75 mb-3'
                           {...register("refCode")}
-                          defaultValue={userData.referralCode || ''}
+                          defaultValue={tran_id || ''}
                           placeholder='Enter Referral Code'
                         />
                         <br />
                         {/* Display the tran_id value from URL query */}
-                        <input
-                          className='w-75 mb-3'
-                          {...register("tran_id")}
-                          defaultValue={tran_id || ''}
-                          placeholder='Transaction ID'
-                          readOnly
-                        />
-                        <br />
+                       
                         <button className="btn-primary mb-4 px-5 py-2 text-white fw-bold">Sign Up</button>
                       </form>
                     </div>
@@ -177,7 +165,7 @@ const NewRegister = () => {
             </Row>
           </Container>
         </div>
-      </div>
+      </Box>
     </div>
   );
 };

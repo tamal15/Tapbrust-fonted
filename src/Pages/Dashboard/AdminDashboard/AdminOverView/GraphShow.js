@@ -1,30 +1,28 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GraphChart from './GraphChart';
 
 const GraphShow = () => {
-    const [model, setModel] = useState([]);
-    useEffect(()=>{
-        fetch('https://sellerportal.vercel.app/adminShowproduct')
-        .then(res=>res.json())
-        .then(data => {
-            const sliceData = data.allQuestions.slice(0, 1);
-    
-            setModel(sliceData)
-    
-          })
-        // .then(data=>setModel(data.allQuestions))
-    },[]);
-    return (
-        <div>
-             {
-                            model.map(datas => <GraphChart key={datas._id} datas={datas}></GraphChart>) 
+  const [questions, setQuestions] = useState([]);
 
-                        }
-            
-        </div>
-    );
+  useEffect(() => {
+    fetch('https://tapbrust-backend.onrender.com/adminConfarm')
+      .then((res) => res.json())
+      .then((data) => setQuestions(data.slice(0,1)));
+  }, []);
+
+  // Filtering questions with pending status
+  
+
+  return (
+    <div>
+      {
+        questions.map((datas) => (
+          // Pass 'datas' and 'managePost' as separate props
+          <GraphChart key={datas._id} datas={datas}  />
+        ))
+      }
+    </div>
+  );
 };
 
 export default GraphShow;

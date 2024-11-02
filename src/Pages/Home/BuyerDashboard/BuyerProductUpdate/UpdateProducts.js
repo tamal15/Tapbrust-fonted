@@ -6,7 +6,7 @@ const UpdateProducts = () => {
    const [user,setUser]=useState({})
    const {id}=useParams()
    useEffect(()=>{
-    fetch(`https://sellerportal.vercel.app/update/${id}`)
+    fetch(`https://tapbrust-backend.onrender.com/update/${id}`)
     .then(res=>res.json())
     .then(data=>setUser(data))
    },[])
@@ -15,7 +15,7 @@ const UpdateProducts = () => {
     const handleupdate=e=>{
         e.preventDefault()
 
-        fetch(`https://sellerportal.vercel.app/updateProduct/${id}`, {
+        fetch(`https://tapbrust-backend.onrender.com/updateProduct/${id}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(user)

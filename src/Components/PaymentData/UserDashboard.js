@@ -39,7 +39,7 @@ const NewUserDashboard = () => {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const response = await fetch(`https://sellerportal.vercel.app/users/${user.email}`);
+        const response = await fetch(`https://tapbrust-backend.onrender.com/users/${user.email}`);
         const data = await response.json();
         if (data) {
           setBalance(data.balance || 0);
@@ -61,7 +61,7 @@ const NewUserDashboard = () => {
   useEffect(() => {
     const fetchTotalIncome = async () => {
       try {
-        const response = await fetch(`https://sellerportal.vercel.app/myincome/${user.email}`);
+        const response = await fetch(`https://tapbrust-backend.onrender.com/myincome/${user.email}`);
         const data = await response.json();
         if (data && data.totalIncome) {
           setTotalIncome(data.totalIncome); // Set the total income to state
@@ -80,7 +80,7 @@ const NewUserDashboard = () => {
   useEffect(() => {
     const fetchWithdrawalHistory = async () => {
       try {
-        const response = await fetch(`https://sellerportal.vercel.app/api/withdraw-history/${user.email}`);
+        const response = await fetch(`https://tapbrust-backend.onrender.com/api/withdraw-history/${user.email}`);
         const data = await response.json();
         if (data) {
           setWithdrawalHistory(data);
@@ -110,7 +110,7 @@ const NewUserDashboard = () => {
       });
 
       if (result.isConfirmed) {
-        const response = await fetch(`https://sellerportal.vercel.app/api/pull-income/${user.email}`, {
+        const response = await fetch(`https://tapbrust-backend.onrender.com/api/pull-income/${user.email}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ const NewUserDashboard = () => {
       });
 
       if (result.isConfirmed) {
-        const response = await fetch(`https://sellerportal.vercel.app/api/reference-pull-income/${user.email}`, {
+        const response = await fetch(`https://tapbrust-backend.onrender.com/api/reference-pull-income/${user.email}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -181,7 +181,7 @@ const NewUserDashboard = () => {
     setError(null);   // Clear any previous errors
   
     try {
-      const response = await fetch(`https://sellerportal.vercel.app/payment-collection/${user.email}`);
+      const response = await fetch(`https://tapbrust-backend.onrender.com/payment-collection/${user.email}`);
       const data = await response.json();
   
       if (response.ok) {
@@ -262,7 +262,7 @@ const NewUserDashboard = () => {
     }
 
     try {
-      const response = await fetch('https://sellerportal.vercel.app/api/withdraw', {
+      const response = await fetch('https://tapbrust-backend.onrender.com/api/withdraw', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -282,7 +282,7 @@ const NewUserDashboard = () => {
         handleClose(); // Close the modal
         Swal.fire('Success!', data.message, 'success');
         // Refresh withdrawal history after successful withdrawal
-        const updatedHistoryResponse = await fetch(`https://sellerportal.vercel.app/api/withdraw-history/${user.email}`);
+        const updatedHistoryResponse = await fetch(`https://tapbrust-backend.onrender.com/api/withdraw-history/${user.email}`);
         const updatedHistory = await updatedHistoryResponse.json();
         setWithdrawalHistory(updatedHistory);
       } else {
@@ -501,9 +501,14 @@ const NewUserDashboard = () => {
             <TableBody>
               {withdrawalHistory.map((history, index) => (
                 <TableRow key={index}>
-                  <TableCell>{history.date}</TableCell>
+                  <TableCell>{new Date(history?.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                timeZone: 'Asia/Dhaka'  // Specify Dhaka time zone
+            })}</TableCell>
                   <TableCell>{history.amount}</TableCell>
-                  <TableCell>{history.accountNumber}</TableCell>
+                  <TableCell>{history.mobileNumber}</TableCell>
                   <TableCell>{history.paymentMethod}</TableCell>
                   <TableCell>{history.status}</TableCell>
                 </TableRow>

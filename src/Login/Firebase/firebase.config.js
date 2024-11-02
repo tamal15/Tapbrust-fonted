@@ -1,10 +1,10 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyDvwzmNhmWg670bknSddEp4JHeOIMuFOqo",
-  authDomain: "car-mechines.firebaseapp.com",
-  projectId: "car-mechines",
-  storageBucket: "car-mechines.appspot.com",
-  messagingSenderId: "909195077912",
-  appId: "1:909195077912:web:95ed263b28c832070f966d"
-  };
-
-  export default firebaseConfig;
+    apiKey: "AIzaSyALIXRWG2rMBNW0Tr63vSVqjuntrXZ8tbI",
+  authDomain: "tapburst-84ad4.firebaseapp.com",
+  projectId: "tapburst-84ad4",
+  storageBucket: "tapburst-84ad4.appspot.com",
+  messagingSenderId: "102967500243",
+  appId: "1:102967500243:web:cf5e53fb82061b77e2e326",
+    };
+  
+    export default firebaseConfig;

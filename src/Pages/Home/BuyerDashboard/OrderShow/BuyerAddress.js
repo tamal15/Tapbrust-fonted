@@ -15,7 +15,7 @@ const CustomerAddress = ({ order, handleDelete }) => {
     const [status, setStatus] = useState('')
 
     const handleUpdate = (id) => {
-        fetch(`https://sellerportal.vercel.app/updateStatus/${id}`, {
+        fetch(`https://tapbrust-backend.onrender.com/updateStatus/${id}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ status }),

@@ -23,7 +23,7 @@ const OrderShow = () => {
     const [status, setStatus] = useState('')
 
     useEffect(()=>{
-        fetch(`https://sellerportal.vercel.app/my/${user?.email}`)
+        fetch(`https://tapbrust-backend.onrender.com/my/${user?.email}`)
         .then(res=>res.json())
         .then(data=>{
             setOrder(data)
@@ -32,7 +32,7 @@ const OrderShow = () => {
 
 
     const handleUpdate = (id) => {
-        fetch(`https://sellerportal.vercel.app/updateStatus/${id}`, {
+        fetch(`https://tapbrust-backend.onrender.com/updateStatus/${id}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ status }),
@@ -54,7 +54,7 @@ const OrderShow = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://sellerportal.vercel.app/manageAllOrderDelete/${id}`)
+                axios.delete(`https://tapbrust-backend.onrender.com/manageAllOrderDelete/${id}`)
                     .then((response) => {
                         response.status === 204 &&
                             Swal.fire(

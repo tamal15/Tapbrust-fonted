@@ -6,7 +6,7 @@ const EditPotterData = () => {
    const [user,setUser]=useState({})
    const {id}=useParams()
    useEffect(()=>{
-    fetch(`https://sellerportal.vercel.app/potter/${id}`)
+    fetch(`https://tapbrust-backend.onrender.com/potter/${id}`)
     .then(res=>res.json())
     .then(data=>setUser(data))
    },[])
@@ -15,7 +15,7 @@ const EditPotterData = () => {
     const handleupdate=e=>{
         e.preventDefault()
 
-        fetch(`https://sellerportal.vercel.app/updatePotter/${id}`, {
+        fetch(`https://tapbrust-backend.onrender.com/updatePotter/${id}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(user)

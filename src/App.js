@@ -5,8 +5,6 @@ import './App.css';
 import Home from './Pages/Home/Home';
 import BuyerDashboard from './Pages/Home/BuyerDashboard/BuyerDashboard';
 import CartContextProvider from './Context/CartContext';
-import OrderReviewPage from './Pages/OrderReviewPage/OrderReviewPage';
-import Payment from './Pages/Payment/Payment';
 import Login from './Login/Login/Login';
 import Register from './Login/Register/Register';
 import AuthProvider from './Context/AuthProvider';
@@ -15,54 +13,21 @@ import ProductDetails from './Pages/Home/BuyerProduct/ProductDetails';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import BuyerWelcome from './Pages/Dashboard/BuyerDashboard/BuyerWelcome/BuyerWelcome';
 import UserProfile from './Pages/Dashboard/UserProfile/UserProfile';
-import UserUpdateProfile from './Pages/Dashboard/UserProfile/UserUpdateProfile';
 import MakeAdmin from './Pages/Dashboard/AdminDashboard/MakeAdmin/MakeAdmin';
-import TaterSharee from './Pages/ShareeCategories/TaterSharee/TaterSharee';
-// import Jamdani from './Pages/ShareeCategories/Jamdani/Jamdani';
-import PotteryProduct from './Pages/PotteryProduct/PotteryProduct';
-import PotterUpload from './Pages/Home/BuyerDashboard/PotterUpload/PotterUpload';
 import BuyerProductUpdate from './Pages/Home/BuyerDashboard/BuyerProductUpdate/BuyerProductUpdate';
 import UpdateProducts from './Pages/Home/BuyerDashboard/BuyerProductUpdate/UpdateProducts';
-import AllCategoriesSharee from './Pages/ShareeCategories/AllCategoriesSharee/AllCategoriesSharee';
-import Jamdani from './Pages/ShareeCategories/Jamdani/Jamdani';
 // import ProductsCategories from './Pages/ProductsCategories/ProductsCategories';
-import SuccessOrder from './Pages/Payment/SuccessOrder/SuccessOrder'
 import MyOrder from './Pages/Dashboard/UserDashboard/MyOrder/MyOrder';
-import FeaturesProductUpload from './Pages/Dashboard/AdminDashboard/FeaturesProductUpload/FeaturesProductUpload';
 import Contact from './Pages/Contact/Contact';
-import FashionProductUpload from './Pages/Dashboard/AdminDashboard/FashionProductUpload/FashionProductUpload';
 import OrderShow from './Pages/Home/BuyerDashboard/OrderShow/OrderShow';
-import Power from './Pages/Home/BestSellers/Shop/Power';
-import Topup from './Pages/Home/BestSellers/Shop/Topup';
-import Expert from './Pages/Home/BestSellers/Expert';
-import RajKonna from './Pages/Home/BestSellers/Shop/Rajkonna';
-import RedvioletShop from './Pages/Home/BestSellers/Shop/RedvioletShop';
-import BrotherShop from './Pages/Home/BestSellers/Shop/BrotherShop';
 import PotterDataUpload from './Pages/Dashboard/BuyerDashboard/PotterDataUpload/PotterDataUpload';
 import EditPotterData from './Pages/Dashboard/BuyerDashboard/PotterDataUpload/EditPotterData/EditPotterData';
 import BuyerAllProduct from './Pages/Home/BuyerProduct/BuyerAllProduct';
-import About from './Pages/Home/About/About';
 import AdminAllProductUpload from './Pages/Dashboard/AdminDashboard/AdminAllProductUpload/AdminAllProductUpload';
 import AdminAllProductShow from './Pages/Dashboard/AdminDashboard/AdminAllProductUpload/AdminAllProductShow';
 import AdminProductDetails from './Pages/Dashboard/AdminDashboard/AdminAllProductUpload/AdminProductDetails';
 import AdminProducts from './Pages/Dashboard/AdminDashboard/AdminProducts/AdminProducts';
 import UserOrders from './Pages/Dashboard/AdminDashboard/UserOrders/UserOrders';
-import StoreProduct from './Pages/OrderReviewPage/StoreProduct';
-import Silk from './Pages/ShareeCategories/Silk/Silk';
-import HalfSilk from './Pages/ShareeCategories/HalfSilk/HalfSilk';
-import Cotton from './Pages/ShareeCategories/Cotton/Cotton';
-import Katan from './Pages/ShareeCategories/Katan/Katan';
-import Tissure from './Pages/ShareeCategories/Tissure/Tissure';
-import NakshiKatha from './Pages/Shilpo/NakshiKatha/NakshiKatha';
-import NakshiPakha from './Pages/Shilpo/NakshiPakha/NakshiPakha';
-import ShitalPati from './Pages/Shilpo/ShitalPati/ShitalPati';
-import DhatobShilpo from './Pages/Shilpo/DhatobShilpo/DhatobShilpo';
-import DaruShilpo from './Pages/Shilpo/DaruShilpo/DaruShilpo';
-import JhinukShilpo from './Pages/Shilpo/JhinukShilpo/JhinukShilpo';
-import PutulShilpo from './Pages/Shilpo/PutulShilpo/PutulShilpo';
-import PitolKashaShilpo from './Pages/Shilpo/PitolKashaShilpo/PitolKashaShilpo';
-import BateShilpo from './Pages/Shilpo/BateShilpo/BateShilpo';
-import ShankhoShilpo from './Pages/Shilpo/ShankhoShilpo/ShankhoShilpo';
 import DarkAndWhiteTheme from './Pages/Home/Mood/DarkAndWhiteTheme';
 
 import { useState } from 'react';
@@ -71,20 +36,12 @@ import { darkTheme, GlobalStyle, GlobalTextStyle, LightTheme } from './Pages/Hom
 import BuyerOrder from './Pages/Home/BuyerDashboard/BuyerOrder/BuyerOrder';
 import ManageOrder from './Pages/Dashboard/AdminDashboard/ManageOrder/ManageOrder';
 import UpdateOrder from './Pages/Dashboard/AdminDashboard/UpdateOrder/UpdateOrder';
-import Abouts from './Pages/Home/About/Abouts';
-import UpdateCollection from './Pages/Home/UpdateCollection/UpdateCollection';
-import AllpotterShow from './Pages/Home/ShowBuyerPotter/AllpotterShow';
 import AdminPotterUpload from './Pages/Dashboard/AdminDashboard/AdminPotterUpload/AdminPotterUpload';
-import Feedback from './Pages/Home/Feedback/Feedback';
-import AdminSeeFeedback from './Pages/Home/Feedback/AdminSeeFeedback';
-import PotterDetails from './Pages/Home/PotterDetails/PotterDetails';
-import Scheduleupdate from './Pages/Dashboard/UserProfile/Scheduleupdate';
 import UpdatePurchase from './Pages/Dashboard/UserProfile/UpdatePurchase';
 import UserDesignOrder from './Pages/Dashboard/BuyerDashboard/userDesignOrder/UserDesignOrder';
 import AdminSeeDesign from './Pages/Dashboard/BuyerDashboard/userDesignOrder/AdminseeDesign';
 import RequireAuth from './Pages/Home/RequireAuth/RequireAuth';
 import AdminOverView from './Pages/Dashboard/AdminDashboard/AdminOverView/AdminOverView';
-import GraphChart from './Pages/Dashboard/AdminDashboard/AdminOverView/GraphChart';
 import GraphShow from './Pages/Dashboard/AdminDashboard/AdminOverView/GraphShow';
 import PotterService from './Pages/Dashboard/AdminDashboard/PotterService/PotterService';
 import PotterserviceForm from './Pages/Dashboard/AdminDashboard/PotterService/PotterserviceForm';
@@ -94,28 +51,29 @@ import DesignPotter from './Pages/Dashboard/AdminDashboard/PotterService/Service
 import ServiceDetailsPart from './Pages/Dashboard/AdminDashboard/PotterService/Services/ServiceDetailsPart';
 import OverView from './Pages/Home/BuyerDashboard/OverView/OverView';
 import Error from './Shared/Error/Error';
-import MainBalance from './Components/PaymentData/MainBalance';
 import AdminPage from './Components/PaymentData/AdminPage';
-import UserDashboard from './Components/PaymentData/UserDashboard';
-import SuccessPage from './Pages/Payment/SuccessPage';
 import UsersDashboard from './Components/PaymentData/UserDashboard';
 import AdminApprovalPage from './Components/PaymentData/AdminApprovalPage';
 import FirstProfile from './Components/PaymentData/FirstProfile';
-import OrderDetails from './Pages/Dashboard/UserDashboard/MyOrder/OrderDetails';
 import ShowAdminProduct from './Pages/Dashboard/AdminDashboard/AdminAllProductUpload/ShowAdminProduct';
 import TypesAdmin from './Pages/Dashboard/AdminDashboard/AdminAllProductUpload/TypesAdmin';
 import CategoryDetails from './Pages/Dashboard/AdminDashboard/AdminAllProductUpload/CategoriesDetails';
 import TypeCategoryDetail from './Pages/Home/HomeDataShow/TypeCategoryDetail';
-import UpdateProduct from './Pages/Dashboard/AdminDashboard/AdminProducts/EditAdminProduct';
 import EditAdminProduct from './Pages/Dashboard/AdminDashboard/AdminProducts/EditAdminProduct';
 import NewUserDashboard from './Components/PaymentData/UserDashboard';
 import RefferPage from './Components/PaymentData/RefferPage';
 import NewRegister from './Login/Register/NewRegister';
-import CategorySearch from './Pages/Dashboard/AdminDashboard/AdminAllProductUpload/CategorySearch';
-import UserAddress from './Pages/Home/Feedback/UserAddress';
-import LoveProduct from './Pages/Home/HomeDataShow/LoveProduct';
 import AdminSeeSuport from './Pages/Dashboard/AdminSeeSupport';
-import SaveUserAddress from './Pages/Home/Feedback/SaveUserAddress';
+import UserAllWithdraw from './Components/PaymentData/UserAllWithdraw';
+import Notice from './Components/PaymentData/Notice';
+import NoticeShow from './Components/PaymentData/NoticeShow';
+import ShowEarn from './Components/PaymentData/ShowEarn';
+import ShowWallet from './Components/PaymentData/ShowWallet/ShowWallet';
+import Userdatacheck from './Components/PaymentData/Userdatacheck';
+import NewShowNotice from './Components/PaymentData/NewShowNotice';
+import AllUser from './Components/PaymentData/AllUser';
+import VerifyEmail from './Components/PaymentData/VerifyEmail';
+import GoogleAdds from './Components/PaymentData/GoogleAdds';
 
 // import { darkTheme, LightTheme,GlobalStyle } from '';
 
@@ -147,75 +105,49 @@ function App() {
           {/* <button onClick={()=>themeToggler()}>Change Theme</button> */}
           <Routes>
              
-              <Route path="/" element={<Home />} />
-              <Route path="/OrderReview" element={<RequireAuth><OrderReviewPage /></RequireAuth>} />
-              <Route path="/payment" element={<Payment />} />
+              <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
               <Route path="/erro" element={<Error/>}/>
               {/* <Route path="/buyer" element={<BuyerDashboard />} /> */}
               <Route path="/login" element={<Login />} />
               <Route path="/theme" element={<DarkAndWhiteTheme />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/store" element={<StoreProduct />} />
               <Route path="/mainbalance" element={<UsersDashboard />} />
               <Route path="/firstProfile" element={<FirstProfile />} />
               <Route path="/category/:category" element={<CategoryDetails />} />
               <Route path="/editprofiles" element={<UserProfile />} />
-              <Route path="/editupdateprofiles" element={<UserUpdateProfile />} />
               <Route path="/partcategories/:type" element={<TypeCategoryDetail />} />  
               <Route path="/newregister" element={<NewRegister />} />              
+              <Route path="/showNotice" element={<NoticeShow />} />              
+              {/* <Route path="/newshowNotice" element={<NewShowNotice />} />               */}
+              <Route path="/showEarn" element={<ShowEarn />} />              
+              <Route path="/showWallet" element={<ShowWallet />} />              
+              <Route path="/verify-email" element={<VerifyEmail />} />              
+              {/* <Route path="/google" element={<GoogleAdds />} />               */}
             
-              {/* <Route path="/success" element={<SuccessOrder />} /> */}
+              {/* ---------------------------------------------------
+              ------------------------------------------------
+              --------------------------   tapbrust start             */}
+
+
+
+
+               {/* -----------------------------------------------------------
+              ------------------------------------------------
+              --------------------------   tapbrust end             */}
               
-              <Route path="/tat" element={<TaterSharee />} />
-              <Route path="/silk" element={<Silk />} />
-              <Route path="/halfsilk" element={<HalfSilk />} />
-              <Route path="/cotton" element={<Cotton />} />
-              <Route path="/katan" element={<Katan />} />
-              <Route path="/tissure" element={<Tissure />} />
-              {/* <Route path="/jamdani" element={<Jamdani />} /> */}
-              <Route path="/all-categories" element={<AllCategoriesSharee />} />
-              <Route path="/pottery" element={<PotteryProduct />} />
-              <Route path="/NakshiKatha" element={<NakshiKatha />} />
-              <Route path="/NakshiPakha" element={<NakshiPakha />} />
-              <Route path="/shitalPati" element={<ShitalPati />} />
-              <Route path="/darushilpo" element={<DaruShilpo />} />
-              <Route path="/jhinukshilpo" element={<JhinukShilpo />} />
-              <Route path="/putulshilpo" element={<PutulShilpo />} />
-              <Route path="/pitolkasha" element={<PitolKashaShilpo />} />
-              <Route path="/shankho" element={<ShankhoShilpo />} />
-              <Route path="/bateshilpo" element={<BateShilpo />} />
-              <Route path="/updateCollection" element={<UpdateCollection />} />
-              <Route path="/dhatobshilpo" element={<DhatobShilpo />} />
               <Route path="/users/update/:id" element={<UpdateProducts />} />
-              <Route path="/jamdani" element={<Jamdani />} />
               <Route path="/contact" element={<Contact></Contact>
              } />
-              <Route path="/fashion" element={<FashionProductUpload />} />
-              <Route path="/features" element={<FeaturesProductUpload />} />
-              <Route path="/abouts" element={<Abouts />} />
               <Route path="/buyerAllproduct" element={<BuyerAllProduct />} />
-              <Route path="/about" element={<About></About>} />
-              <Route path="/powerShop" element={<Power />} />
-              <Route path="/topShop" element={<Topup />} />
-              <Route path="/expertShop" element={<Expert />} />
-              <Route path="/rajShop" element={<RajKonna />} />
-              <Route path="/redvioletShop" element={<RedvioletShop />} />
-              <Route path="/brother" element={<BrotherShop />} />
-              <Route path="/allPotter" element={<AllpotterShow />} />
               <Route path="/graph" element={<GraphShow />} />
               {/* <Route path="/potterservice" element={<PotterService />} /> */}
               <Route path="/services" element={<Services />} />
               <Route path="/design" element={<DesignPotter />} />
-              <Route path="/success" element={<SuccessPage />} />
-              <Route path="/loveproduct" element={<LoveProduct />} />
              
-              <Route path="/adminproductshow" element={<AdminAllProductShow />} />
-              <Route path="/search" element={<CategorySearch />} />
               <Route path="/adminsproducts" element={<AdminProducts />} />
               {/* <Route path="/serviceshow" element={<PotterServiceShow />} /> */}
               {/* <Route path="/sellerOverview" element={<OverView />} /> */}
              
-              <Route path="success/:id" element={<SuccessOrder />} />
              
               {/* <Route path="/potterupload" element={<PotterUpload />} /> */}
               <Route
@@ -227,9 +159,7 @@ function App() {
               <Route
               path="service/:id"
               element={<PotterserviceForm />}/>
-              <Route
-              path="potterDetails/:id"
-              element={<PotterDetails />}/>
+             
               <Route
               path="adminbookDetails/:id"
               element={<AdminProductDetails />}/>
@@ -240,15 +170,10 @@ function App() {
               <Route path="/dashboard" element={<BuyerWelcome/>} />
               <Route path="/dashboard/welcome" element={<BuyerWelcome/>} />
               <Route path="/dashboard/userProfile" element={<UserProfile/>} />
-              <Route path="/dashboard/userUpdate" element={<UserUpdateProfile/>} />
               <Route path="/dashboard/makeadmin" element={<MakeAdmin/>} />
               <Route path="/dashboard/adminCheck" element={<ManageOrder/>} />
               <Route path="/dashboard/sellerOverview" element={<OverView/>} />
-              <Route path="/dashboard/userfeedback" element={<AdminSeeFeedback/>} />
-              <Route path="/dashboard/useraddress" element={<UserAddress/>} />
-              <Route path="/dashboard/saveuseraddress" element={<SaveUserAddress/>} />
               <Route path="/dashboard/userdesignsee" element={<AdminSeeDesign/>} />
-              <Route path="/dashboard/feedback" element={<Feedback/>} />
               <Route path="/dashboard/buyerOrder" element={<BuyerOrder/>} />
               <Route path="/dashboard/uploadProduct" element={<ProductBuyer />} />
               <Route path="/dashboard/potterupload" element={<PotterService />} />
@@ -265,6 +190,11 @@ function App() {
               <Route path="/dashboard/newuserdashboard" element={<NewUserDashboard />} />
               <Route path="/dashboard/rafferinfo" element={<RefferPage />} />
               <Route path="/dashboard/adminsupport" element={<AdminSeeSuport />} />
+              <Route path="/dashboard/userallwithdraw" element={<UserAllWithdraw />} />
+              <Route path="/dashboard/userdatacheck" element={<Userdatacheck />} />
+              <Route path="/dashboard/addnotice" element={<Notice />} />
+              <Route path="/dashboard/newshowNotice" element={<NewShowNotice />} />
+              {/* <Route path="/dashboard/sellerwelcome" element={<SellerWelcome />} /> */}
 
 
 
@@ -277,11 +207,11 @@ function App() {
               <Route path="/dashboard/userspotter/updatepotter/:id" element={<EditPotterData />} />
               <Route path="/dashboard/updateadminproducts/:parentId/:index" element={<EditAdminProduct />} />
 
-              <Route path="/dashboard/userSchedule/updatepotter/:id" element={<Scheduleupdate />} />
               <Route path="/dashboard/userPurchase/updatepotter/:id" element={<UpdatePurchase />} />
               <Route path="/dashboard/adminsproducts" element={<AdminProducts />} />
               <Route path="/dashboard/adminAllProduct" element={<AdminAllProductUpload />} />
               <Route path="/dashboard/overview" element={<AdminOverView />} />
+              <Route path="/dashboard/alluser" element={<AllUser />} />
 
               </Route>
              {/* product categories  */}

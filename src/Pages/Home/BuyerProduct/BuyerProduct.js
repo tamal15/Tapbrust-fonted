@@ -56,7 +56,7 @@ const BuyerProduct = () => {
     //   },[])
 
     const fetchData = () => {
-      fetch('https://sellerportal.vercel.app/postBuyer')
+      fetch('https://tapbrust-backend.onrender.com/postBuyer')
         .then(res => res.json())
         // .then(data => setWork(data))
         .then(data => {
@@ -73,7 +73,7 @@ const BuyerProduct = () => {
 
 
     const handleLike = (id) => {
-      fetch(`https://sellerportal.vercel.app/like/${id}`, {
+      fetch(`https://tapbrust-backend.onrender.com/like/${id}`, {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(userData)
@@ -92,7 +92,7 @@ const BuyerProduct = () => {
   
     }
     const handleUnLike = (id) => {
-      fetch(`https://sellerportal.vercel.app/unlike/${id}`, {
+      fetch(`https://tapbrust-backend.onrender.com/unlike/${id}`, {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(userData)
